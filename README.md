@@ -26,7 +26,7 @@ cd Parkinglot_system
 ```
 Install all the needed packages
 ```bash
-npm install
+pip install -r requirements.txt
 ```
 Run Interface.py
 ```bash
