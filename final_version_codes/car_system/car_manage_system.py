@@ -245,7 +245,7 @@ class ParkingLotSystem:
             record_frame.pack(fill="x", padx=10, pady=5)
 
             tk.Label(record_frame, text=(f"{idx+1}. Vehicle {plate}: Entered at {entry_time.strftime('%Y-%m-%d %H:%M:%S')}, "
-                                         f"Exited at {exit_time.strftime('%Y-%m-%d %H:%M:%S')}, Fee: ¥{fee}"),
+                                         f"Exited at {exit_time.strftime('%Y-%m-%d %H:%M:%S')}, Fee: ${fee}"),
                      font=("Times New Roman", 10)).pack(side="left")
             tk.Button(record_frame, text="Delete", font=("Times New Roman", 10),
                       command=lambda idx=idx: self.delete_history_record(idx)).pack(side="right")
@@ -271,7 +271,7 @@ class ParkingLotSystem:
         '''
         This method saves the current parking records to a CSV file.
         '''
-        with open("/final_version_codes/data_storage/parking_records.csv", mode="w", newline="") as file:
+        with open("final_version_codes/data_storage/parking_records.csv", mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["Plate", "Entry Time"])
             for plate, entry_time in self.parking_records.items():
@@ -283,7 +283,7 @@ class ParkingLotSystem:
         This method loads the parking records from a CSV file.
         '''
         try:
-            with open("/final_version_codes/data_storage/parking_records.csv", mode="r", newline="") as file:
+            with open("final_version_codes/data_storage/parking_records.csv", mode="r", newline="") as file:
                 reader = csv.reader(file)
                 next(reader)  # Skip header row
                 for row in reader:
@@ -297,7 +297,7 @@ class ParkingLotSystem:
         '''
         This method saves the historical parking records to a CSV file.
         '''
-        with open("/final_version_codes/data_storage/history_records.csv", mode="w", newline="") as file:
+        with open("final_version_codes/data_storage/history_records.csv", mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["Plate", "Entry Time", "Exit Time", "Fee"])
             for record in self.history_records:
@@ -310,7 +310,7 @@ class ParkingLotSystem:
         This method loads the historical parking records from a CSV file.
         '''
         try:
-            with open("/final_version_codes/data_storage/history_records.csv", mode="r", newline="") as file:
+            with open("final_version_codes/data_storage/history_records.csv", mode="r", newline="") as file:
                 reader = csv.reader(file)
                 next(reader)  # Skip header row
                 for row in reader:
