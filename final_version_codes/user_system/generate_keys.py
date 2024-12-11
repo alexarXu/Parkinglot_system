@@ -8,6 +8,7 @@ When generating a key pair, the public key is derived from the private key.
 ATTENTION: This script should ONLY be run ONCE to generate and save the key pair.
 '''
 
+
 def generate_and_save_keys():
     private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -29,4 +30,4 @@ def generate_and_save_keys():
         ))
 
 
-generate_and_save_keys()  
+generate_and_save_keys()

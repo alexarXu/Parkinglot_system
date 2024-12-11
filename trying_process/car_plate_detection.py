@@ -10,7 +10,6 @@ So I will use another package to detect the license plate region, which is Hyper
 '''
 
 
-
 import cv2
 import numpy as np
 import hyperlpr3 as lpr3
@@ -26,7 +25,7 @@ def preprocess_image(image_path):
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
     # Use adaptive thresholding for better segmentation of white license plates
-    binary = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+    binary = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
                                    cv2.THRESH_BINARY, 11, 2)
 
     # Invert the binary image (white background, black text)
@@ -34,10 +33,12 @@ def preprocess_image(image_path):
 
     return image, gray, binary
 
+
 def find_license_plate_contours(binary):
     """Find contours that could represent a license plate."""
     # Find contours
-    contours, _ = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(
+        binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     # Filter contours by size, aspect ratio, and rectangularity
     potential_plates = []
@@ -54,33 +55,37 @@ def find_license_plate_contours(binary):
 
     return potential_plates
 
+
 def extract_characters(plate_image):
     """Extract characters from the license plate region."""
     # Convert to grayscale
     gray_plate = cv2.cvtColor(plate_image, cv2.COLOR_BGR2GRAY)
 
     # Thresholding
-    _, binary_plate = cv2.threshold(gray_plate, 127, 255, cv2.THRESH_BINARY_INV)
+    _, binary_plate = cv2.threshold(
+        gray_plate, 127, 255, cv2.THRESH_BINARY_INV)
 
     # Morphological operations to clean noise
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     binary_plate = cv2.morphologyEx(binary_plate, cv2.MORPH_CLOSE, kernel)
 
     # Find contours for characters
-    contours, _ = cv2.findContours(binary_plate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(
+        binary_plate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     characters = []
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
 
         # Filter small contours (noise) by size and aspect ratio
         if 0.3 < w / h < 1.5 and h > 15:
-            char_image = binary_plate[y:y+h, x:x+w]
+            char_image = binary_plate[y:y + h, x:x + w]
             characters.append((x, char_image))
 
     # Sort characters by x-coordinate (left to right)
     characters = sorted(characters, key=lambda x: x[0])
 
     return [char[1] for char in characters]
+
 
 def main(image_path):
     # Step 1: Preprocess the image
@@ -91,7 +96,7 @@ def main(image_path):
 
     # Step 3: Process each detected license plate
     for x, y, w, h in plate_contours:
-        plate_image = image[y:y+h, x:x+w]
+        plate_image = image[y:y + h, x:x + w]
 
         # Verify the detected region has text-like properties
         if w > 100 and h > 30:  # Additional size constraints
@@ -107,6 +112,7 @@ def main(image_path):
             cv2.waitKey(0)
 
     cv2.destroyAllWindows()
+
 
 # Example usage
 if __name__ == "__main__":

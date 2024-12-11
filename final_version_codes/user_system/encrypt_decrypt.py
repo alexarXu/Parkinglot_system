@@ -43,7 +43,8 @@ def decrypt_message(encrypted_message, private_key):
     str
         The decrypted message.
     '''
-    encrypted_message_bytes = base64.b64decode(encrypted_message.encode('utf-8'))
+    encrypted_message_bytes = base64.b64decode(
+        encrypted_message.encode('utf-8'))
     decrypted_message = private_key.decrypt(
         encrypted_message_bytes,
         padding.OAEP(
@@ -64,7 +65,8 @@ def load_keys():
         The private and public keys loaded from the files.
     '''
     with open("final_version_codes/user_info_data/private_key.pem", "rb") as f:
-        private_key = serialization.load_pem_private_key(f.read(), password=None)
+        private_key = serialization.load_pem_private_key(
+            f.read(), password=None)
 
     with open("final_version_codes/user_info_data/public_key.pem", "rb") as f:
         public_key = serialization.load_pem_public_key(f.read())
