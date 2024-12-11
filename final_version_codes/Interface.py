@@ -56,7 +56,7 @@ class MainMenuApp:
 
         image_frame = tk.Frame(self.root)
         image_frame.pack(pady=10)
-        image = Image.open("C:/Users/administer/Desktop/SC/Campus-Navigation-System/car.png")
+        image = Image.open("C:/Users/administer/Desktop/SC/Parkinglot_system/final_version_codes/car.png")
         photo = ImageTk.PhotoImage(image)
         img_label = tk.Label(image_frame, image=photo)
         img_label.image = photo 

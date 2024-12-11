@@ -31,8 +31,8 @@ class UserSystem:
     def __init__(self, root, main_menu_callback):
         self.root = root
         self.main_menu_callback = main_menu_callback
-        self.users_file = 'user_info_data/users.json'
-        self.admin_file = 'user_info_data/admin.json'
+        self.users_file = 'final_version_codes/user_info_data/users.json'
+        self.admin_file = 'final_version_codes/user_info_data/admin.json'
         self.load_users()
         self.load_admin()
 

@@ -63,10 +63,10 @@ def load_keys():
     RSAPrivateKey, RSAPublicKey
         The private and public keys loaded from the files.
     '''
-    with open("user_info_data/private_key.pem", "rb") as f:
+    with open("final_version_codes/user_info_data/private_key.pem", "rb") as f:
         private_key = serialization.load_pem_private_key(f.read(), password=None)
 
-    with open("user_info_data/public_key.pem", "rb") as f:
+    with open("final_version_codes/user_info_data/public_key.pem", "rb") as f:
         public_key = serialization.load_pem_public_key(f.read())
 
     return private_key, public_key
